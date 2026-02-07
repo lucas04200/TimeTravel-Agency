@@ -4,6 +4,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+
+# Récupération de la clé API depuis les arguments de build (docker-compose)
+ARG VITE_MISTRAL_API_KEY
+ENV VITE_MISTRAL_API_KEY=$VITE_MISTRAL_API_KEY
+
 RUN npm run build
 
 # Étape 2 : Production avec Nginx
