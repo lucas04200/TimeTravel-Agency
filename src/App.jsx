@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Clock, MessageCircle, Send, Loader2 } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { motion, useScroll, useSpring } from 'framer-motion';
 
 import Home from './pages/Home';
 import Agency from './pages/Agency';
@@ -15,6 +16,14 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  // Animation de la barre de scroll
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   // Auto-scroll vers le bas du chat
   useEffect(() => {
@@ -85,6 +94,11 @@ function App() {
     <div className="min-h-screen bg-brand-darker text-white font-sans selection:bg-brand-gold selection:text-brand-darker">
       
       {/* Navigation */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-brand-gold origin-left z-[60]"
+        style={{ scaleX }}
+      />
+      
       <nav className="fixed w-full z-50 bg-brand-darker/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">

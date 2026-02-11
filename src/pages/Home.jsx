@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { destinations } from '../destinations';
 import QuizModal from '../components/QuizModal';
+import HeroVideo from '../components/HeroVideo';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -17,33 +18,17 @@ export default function Home() {
     <>
       <QuizModal isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} />
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-darker/50 via-brand-darker/50 to-brand-darker z-10"></div>
-        <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay loop muted playsInline 
-            className="w-full h-full object-cover opacity-60"
-            poster="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&q=80&w=2000"
-          >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4" type="video/mp4" />
-          </video>
-        </div>
-        
-        <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          className="relative z-20 text-center px-4 max-w-4xl mx-auto"
-        >
-          <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
+      <HeroVideo
+        videoSrc="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4"
+        title={
+          <>
             Le temps est votre <br/>
             <span className="text-brand-gold">nouvelle destination</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto">
-            Explorez Paris en 1889, flânez dans Florence en 1504 ou survivez au Crétacé. 
-            L'histoire n'attend que vous.
-          </p>
-          <div className="flex flex-col md:flex-row gap-4 justify-center">
+          </>
+        }
+        subtitle="Explorez Paris en 1889, flânez dans Florence en 1504 ou survivez au Crétacé. L'histoire n'attend que vous."
+      >
+        <div className="flex flex-col md:flex-row gap-4 justify-center">
             <a href="#destinations" className="bg-brand-gold text-brand-darker px-8 py-4 rounded-full font-bold text-lg hover:bg-white transition-all transform hover:scale-105 flex items-center justify-center gap-2">
               Choisir une époque <ChevronRight className="w-5 h-5" />
             </a>
@@ -53,9 +38,8 @@ export default function Home() {
             >
               <Sparkles className="w-5 h-5" /> Trouver mon voyage
             </button>
-          </div>
-        </motion.div>
-      </section>
+        </div>
+      </HeroVideo>
 
       {/* Destinations Section */}
       <section id="destinations" className="py-20 px-4 max-w-7xl mx-auto">
